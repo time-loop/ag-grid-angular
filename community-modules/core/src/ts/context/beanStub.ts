@@ -9,6 +9,7 @@ import { GridOptionsService, PropertyChangedEvent, PropertyChangedListener } fro
 import { GridOptions } from "../entities/gridOptions";
 import { LocaleService } from "../localeService";
 import { Environment } from "../environment";
+import { AllEventNames } from "../eventKeys";
 
 export class BeanStub implements IEventEmitter {
 
@@ -109,6 +110,27 @@ export class BeanStub implements IEventEmitter {
 
         const destroyFunc: () => null = () => {
             object.removeEventListener(event, listener);
+            this.destroyFunctions = this.destroyFunctions.filter(fn => fn !== destroyFunc);
+            return null;
+        };
+
+        this.destroyFunctions.push(destroyFunc);
+
+        return destroyFunc;
+    }
+
+    public addManagedEventListener(
+        event: AllEventNames,
+        listener: (event?: any) => void
+    ): (() => null) | undefined {
+        if (this.destroyed) {
+            return;
+        }
+
+        this.eventService.addEventListener(event, listener);
+
+        const destroyFunc: () => null = () => {
+            this.eventService.removeEventListener(event, listener);
             this.destroyFunctions = this.destroyFunctions.filter(fn => fn !== destroyFunc);
             return null;
         };

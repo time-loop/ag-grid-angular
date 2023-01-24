@@ -5272,6 +5272,10 @@
   },
   "SASS_PROPERTIES": {},
   "HardCodedSize": {},
+  "EventsClass": {},
+  "PrivateEvents": {},
+  "AllEventNames": {},
+  "PublicEventNames": {},
   "ModelUpdatedEvent": {
     "animate": {
       "description": "/** If true, the grid will try and animate the rows to the new positions */",

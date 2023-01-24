@@ -213,3 +213,42 @@ export class Events {
 
     /*****************************  INTERNAL EVENTS: END ******************************************* */
 }
+
+const EXCLUDED_INTERNAL_EVENTS = [
+    Events.EVENT_SCROLLBAR_WIDTH_CHANGED,
+    Events.EVENT_CHECKBOX_CHANGED,
+    Events.EVENT_HEIGHT_SCALE_CHANGED,
+    Events.EVENT_BODY_HEIGHT_CHANGED,
+    Events.EVENT_DISPLAYED_COLUMNS_WIDTH_CHANGED,
+    Events.EVENT_SCROLL_VISIBILITY_CHANGED,
+    Events.EVENT_COLUMN_HOVER_CHANGED,
+    Events.EVENT_FLASH_CELLS,
+    Events.EVENT_PAGINATION_PIXEL_OFFSET_CHANGED,
+    Events.EVENT_DISPLAYED_ROWS_CHANGED,
+    Events.EVENT_LEFT_PINNED_WIDTH_CHANGED,
+    Events.EVENT_RIGHT_PINNED_WIDTH_CHANGED,
+    Events.EVENT_ROW_CONTAINER_HEIGHT_CHANGED,
+    Events.EVENT_POPUP_TO_FRONT,
+    Events.EVENT_KEYBOARD_FOCUS,
+    Events.EVENT_MOUSE_FOCUS,
+    Events.EVENT_STORE_UPDATED,
+    Events.EVENT_COLUMN_PANEL_ITEM_DRAG_START,
+    Events.EVENT_COLUMN_PANEL_ITEM_DRAG_END,
+    Events.EVENT_FILL_START,
+    Events.EVENT_FILL_END,
+    Events.EVENT_KEY_SHORTCUT_CHANGED_CELL_START,
+    Events.EVENT_KEY_SHORTCUT_CHANGED_CELL_END,
+    Events.EVENT_FULL_WIDTH_ROW_FOCUSED,
+    Events.EVENT_HEADER_HEIGHT_CHANGED,
+    Events.EVENT_COLUMN_HEADER_HEIGHT_CHANGED
+] as const;
+
+type EventsClass = typeof Events;
+
+type PrivateEvents = (typeof EXCLUDED_INTERNAL_EVENTS)[number]
+
+export type AllEventNames = {
+    [key in keyof EventsClass]: EventsClass[key] extends string ? EventsClass[key] : never;
+}[keyof EventsClass]
+
+type PublicEventNames = Exclude<AllEventNames, PrivateEvents>

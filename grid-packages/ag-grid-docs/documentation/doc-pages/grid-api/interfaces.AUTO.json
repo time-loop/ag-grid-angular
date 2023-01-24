@@ -2521,6 +2521,19 @@
     "meta": {},
     "type": { "[key: string]": "{[key in SASS_PROPERTIES]?: number}" }
   },
+  "EventsClass": { "meta": { "isTypeAlias": true }, "type": "typeof Events" },
+  "PrivateEvents": {
+    "meta": { "isTypeAlias": true },
+    "type": "(typeof EXCLUDED_INTERNAL_EVENTS)[number]"
+  },
+  "AllEventNames": {
+    "meta": { "isTypeAlias": true },
+    "type": "{ [key in keyof EventsClass]: EventsClass[key] extends string ? EventsClass[key] : never; }[keyof EventsClass]"
+  },
+  "PublicEventNames": {
+    "meta": { "isTypeAlias": true },
+    "type": "Exclude<AllEventNames, PrivateEvents>"
+  },
   "ModelUpdatedEvent": {
     "meta": { "typeParams": ["TData = any"] },
     "type": {
