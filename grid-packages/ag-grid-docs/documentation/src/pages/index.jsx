@@ -82,8 +82,14 @@ const Default = () => {
                 </div>
 
                 <div className={styles.homepageExample}>
-                    <section className="page-margin">
-                        <h2>Live Streaming Updates</h2>
+                    <section
+                        style={{ display: 'flex', 'justify-content': 'center', 'margin-top': '80px' }}
+                        dangerouslySetInnerHTML={{
+                            __html:
+                                '<video style="max-width: 100%;" autoPlay muted loop><source src="videos/landing-page.mp4" type="video/mp4"/></video>',
+                        }}
+                    ></section>
+                    {/* <h2>Live Streaming Updates</h2>
 
                         <div className={styles.demo}>
                             {!IS_SSR && (
@@ -91,8 +97,7 @@ const Default = () => {
                                     <LiveStreamingDemo />
                                 </React.Suspense>
                             )}
-                        </div>
-                    </section>
+                        </div> */}
                 </div>
 
                 <div className={styles.homepageDescription}>
