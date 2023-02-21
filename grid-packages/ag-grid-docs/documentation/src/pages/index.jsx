@@ -7,11 +7,12 @@ import { quotesData } from '../components/quotes/quotesData';
 import { agGridVersion } from '../utils/consts';
 // @ts-ignore
 import styles from './components/assets/homepage/homepage.module.scss';
+import ChartingExampleVideo from './components/home-page-demos/ChartingExampleVideo';
+import RowGroupingExampleVideo from './components/home-page-demos/RowGroupingExampleVideo';
 import Seo from './components/SEO';
 
 const IS_SSR = typeof window === 'undefined';
 
-const LiveStreamingDemo = React.lazy(() => import('./components/home-page-demos/LiveStreaming'));
 const ChartingDashboardDemo = React.lazy(() => import('./components/home-page-demos/ChartingDashboard'));
 const HeroGrid = React.lazy(() => import('./components/home-page-demos/HeroGrid'));
 
@@ -81,17 +82,11 @@ const Default = () => {
                     </div>
                 </div>
 
-                <div className={styles.homepageExample}>
+                <div className={styles.exampleVideo}>
                     <section className="page-margin">
-                        <h2>Live Streaming Updates</h2>
+                        <h2>Group & Pivot</h2>
 
-                        <div className={styles.demo}>
-                            {!IS_SSR && (
-                                <React.Suspense fallback={<div>Loading...</div>}>
-                                    <LiveStreamingDemo />
-                                </React.Suspense>
-                            )}
-                        </div>
+                        <RowGroupingExampleVideo />
                     </section>
                 </div>
 
@@ -127,17 +122,11 @@ const Default = () => {
                     </div>
                 </div>
 
-                <div className={styles.homepageExample}>
+                <div className={styles.exampleVideo}>
                     <section className="page-margin">
-                        <h2>Integrated Charting</h2>
+                        <h2>Charting</h2>
 
-                        <div className={styles.demo}>
-                            {!IS_SSR && (
-                                <React.Suspense fallback={<div>Loading...</div>}>
-                                    <ChartingDashboardDemo />
-                                </React.Suspense>
-                            )}
-                        </div>
+                        <ChartingExampleVideo />
                     </section>
                 </div>
 
