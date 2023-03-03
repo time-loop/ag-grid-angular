@@ -748,6 +748,7 @@
       "maxHandle?": "/** Configuration for the navigator's right handle. */"
     }
   },
+  "AgZoomOptions": { "meta": {}, "type": { "enabled?": "boolean" } },
   "AgChartLegendPosition": {
     "meta": { "isTypeAlias": true },
     "type": "'top' | 'right' | 'bottom' | 'left'"
@@ -3009,6 +3010,7 @@
       "axes?": "AgCartesianAxisOptions[]",
       "series?": "AgCartesianSeriesOptions[]",
       "navigator?": "AgNavigatorOptions",
+      "zoom?": "AgZoomOptions",
       "data?": "any[]",
       "container?": "HTMLElement | null",
       "width?": "PixelSize",
@@ -3029,6 +3031,7 @@
       "axes?": "/** Axis configurations. */",
       "series?": "/** Series configurations. */",
       "navigator?": "/** Configuration for the chart navigator. */",
+      "zoom?": "/** Configuration for chart zooming. */",
       "data?": "/** The data to render the chart from. If this is not specified, it must be set on individual series instead. */",
       "container?": "/** The element to place the rendered chart into.<br/><strong>Important:</strong> make sure to read the `autoSize` config description for information on how the container element affects the chart size (by default). */",
       "width?": "/** The width of the chart in pixels. Has no effect if `autoSize` is set to `true`. */",
@@ -3315,18 +3318,18 @@
   },
   "InteractionTypes": {
     "meta": { "isTypeAlias": true },
-    "type": "'click' | 'dblclick' | 'hover' | 'drag-start' | 'drag' | 'drag-end' | 'leave' | 'page-left'"
+    "type": "'click' | 'dblclick' | 'hover' | 'drag-start' | 'drag' | 'drag-end' | 'leave' | 'page-left' | 'wheel'"
   },
   "SUPPORTED_EVENTS": {
     "meta": { "isTypeAlias": true },
-    "type": "'click' | 'dblclick' | 'mousedown' | 'mousemove' | 'mouseup' | 'mouseout' | 'mouseenter' | 'touchstart' | 'touchmove' | 'touchend' | 'touchcancel' | 'pagehide'"
+    "type": "'click' | 'dblclick' | 'mousedown' | 'mousemove' | 'mouseup' | 'mouseout' | 'mouseenter' | 'touchstart' | 'touchmove' | 'touchend' | 'touchcancel' | 'pagehide' | 'wheel'"
   },
   "InteractionEvent": {
     "meta": {
       "isTypeAlias": true,
       "typeParams": ["T extends InteractionTypes"]
     },
-    "type": "{ type: T; offsetX: number; offsetY: number; pageX: number; pageY: number; sourceEvent: Event; consume(): void; } & (T extends 'drag' ? { startX: number; startY: number; } : {})"
+    "type": "{ type: T; offsetX: number; offsetY: number; pageX: number; pageY: number; sourceEvent: Event; consume(): void; }"
   },
   "Coords": {
     "meta": {},

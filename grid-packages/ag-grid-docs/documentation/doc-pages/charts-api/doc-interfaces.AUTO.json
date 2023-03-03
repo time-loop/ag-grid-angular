@@ -1220,6 +1220,9 @@
       "type": { "returnType": "AgNavigatorHandleOptions", "optional": true }
     }
   },
+  "AgZoomOptions": {
+    "enabled": { "type": { "returnType": "boolean", "optional": true } }
+  },
   "AgChartLegendPosition": {},
   "AgChartOrientation": {},
   "AgChartLegendMarkerOptions": {
@@ -4636,6 +4639,10 @@
     "navigator": {
       "description": "/** Configuration for the chart navigator. */",
       "type": { "returnType": "AgNavigatorOptions", "optional": true }
+    },
+    "zoom": {
+      "description": "/** Configuration for chart zooming. */",
+      "type": { "returnType": "AgZoomOptions", "optional": true }
     },
     "data": {
       "description": "/** The data to render the chart from. If this is not specified, it must be set on individual series instead. */",

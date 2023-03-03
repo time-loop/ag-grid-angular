@@ -321,6 +321,12 @@ export interface AgNavigatorOptions {
     maxHandle?: AgNavigatorHandleOptions;
 }
 
+export type AgZoomAxes = 'x' | 'y' | 'xy';
+export interface AgZoomOptions {
+    enabled?: boolean;
+    axes?: AgZoomAxes;
+}
+
 export type AgChartLegendPosition = 'top' | 'right' | 'bottom' | 'left';
 export type AgChartOrientation = 'horizontal' | 'vertical';
 
@@ -1744,6 +1750,8 @@ export interface AgCartesianChartOptions extends AgBaseChartOptions {
     series?: AgCartesianSeriesOptions[];
     /** Configuration for the chart navigator. */
     navigator?: AgNavigatorOptions;
+    /** Configuration for chart zooming. */
+    zoom?: AgZoomOptions;
 }
 
 export interface AgPolarChartOptions extends AgBaseChartOptions {
