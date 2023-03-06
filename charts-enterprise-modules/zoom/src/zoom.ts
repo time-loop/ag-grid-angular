@@ -79,16 +79,23 @@ export class Zoom extends _ModuleSupport.BaseModuleInstance implements _ModuleSu
     private handleSelectionChange(coords: ZoomCoords) {
         if (!this.seriesRect) return;
 
+        const min = this.pointToRatio(coords.x1, coords.y1);
+        const max = this.pointToRatio(coords.x2, coords.y2);
+
         const zoomState: DefinedZoomState = {
-            x: { min: (1 / this.seriesRect.width) * coords.x1, max: (1 / this.seriesRect.width) * coords.x2 },
-            y: { min: (1 / this.seriesRect.height) * coords.y1, max: (1 / this.seriesRect.height) * coords.y2 },
+            x: { min: min.x, max: max.x },
+            y: { min: max.y, max: min.y }, // TODO: zoom state is inverse of the chart coords system
         };
 
         this.zoomManager.updateZoom('zoom', zoomState);
     }
 
     private onDrag(event: _ModuleSupport.InteractionEvent<'drag'>) {
-        this.selector.update(event.offsetX, event.offsetY);
+        if (this.isWithinSeriesRect(event.offsetX, event.offsetY)) {
+            this.selector.update(event.offsetX, event.offsetY);
+        } else {
+            this.selector.reset();
+        }
     }
 
     private onDragEnd() {
@@ -109,10 +116,11 @@ export class Zoom extends _ModuleSupport.BaseModuleInstance implements _ModuleSu
 
         // Scale the zoom bounding box
         const dir = sourceEvent.deltaY < 0 ? -1 : 1;
+        const zoomFactor = 1 + this.wheelStep * dir;
         const aspectRatio = (oldZoom.y.max - oldZoom.y.min) / (oldZoom.x.max - oldZoom.x.min);
 
-        const xFactor = this.isScalingX() ? 1 + this.wheelStep * dir : 1;
-        const yFactor = this.isScalingY() ? 1 + this.wheelStep * dir * aspectRatio : 1;
+        const xFactor = this.isScalingX() ? zoomFactor : 1;
+        const yFactor = this.isScalingY() ? zoomFactor * aspectRatio : 1;
 
         let newZoom = this.scaleZoom(oldZoom, xFactor, yFactor);
 
@@ -139,7 +147,7 @@ export class Zoom extends _ModuleSupport.BaseModuleInstance implements _ModuleSu
     /**
      * Calculate the position on the series rect as a ratio from the top left corner. Invert the ratio on the y-axis to
      * cater for conflicting direction between screen and chart axis systems. Constrains the point to the series
-     * rect so the zoom is pinned to the edges if the cursor is over the legends or axes.
+     * rect so the zoom is pinned to the edges if the point is over the legends, axes, etc.
      */
     private pointToRatio(x: number, y: number): { x: number; y: number } {
         if (!this.seriesRect) return { x: 0, y: 0 };
@@ -177,7 +185,7 @@ export class Zoom extends _ModuleSupport.BaseModuleInstance implements _ModuleSu
     }
 
     /**
-     * Constrain a zoom bounding box such no corner exceeds an edge while maintaining the same width and height.
+     * Constrain a zoom bounding box such that no corner exceeds an edge while maintaining the same width and height.
      */
     private constrainZoom(zoom: DefinedZoomState): DefinedZoomState {
         const after = unitZoomState();
@@ -213,5 +221,15 @@ export class Zoom extends _ModuleSupport.BaseModuleInstance implements _ModuleSu
 
     private isScalingY(): boolean {
         return this.axes === 'y' || this.axes === 'xy';
+    }
+
+    private isWithinSeriesRect(x: number, y: number) {
+        const { seriesRect } = this;
+        return (
+            x >= seriesRect.x &&
+            x <= seriesRect.x + seriesRect.width &&
+            y >= seriesRect.y &&
+            y <= seriesRect.y + seriesRect.height
+        );
     }
 }

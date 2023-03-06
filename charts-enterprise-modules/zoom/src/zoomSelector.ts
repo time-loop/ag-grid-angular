@@ -34,6 +34,10 @@ export class ZoomSelector extends _Scene.Group {
         this.resetCoords();
     }
 
+    reset(): void {
+        this.resetCoords();
+    }
+
     render(renderCtx: _Scene.RenderContext) {
         const { ctx, stats } = renderCtx;
 
