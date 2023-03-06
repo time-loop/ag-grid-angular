@@ -60,8 +60,10 @@ export class CartesianChart extends Chart {
         const { seriesRoot } = this;
         if (clipSeries) {
             const { x, y, width, height } = seriesRect;
-            // TODO: this is offset from the top left by what appears to be the title and axis labels, why?
-            seriesRoot.setClipRectInGroupCoordinateSpace(new BBox(x / 2, y / 2, width, height / 2));
+            const { pixelRatio } = this.scene.canvas;
+            seriesRoot.setClipRectInGroupCoordinateSpace(
+                new BBox(x / pixelRatio, y / pixelRatio, width, height / pixelRatio)
+            );
         } else {
             seriesRoot.setClipRectInGroupCoordinateSpace(undefined);
         }
