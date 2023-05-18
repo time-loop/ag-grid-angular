@@ -5,6 +5,7 @@ import fs from 'fs';
 import React, { useMemo, useState } from 'react';
 import VisibilitySensor from 'react-visibility-sensor';
 import isServerSideRendering from 'utils/is-server-side-rendering';
+import { trackOnceExampleRunner } from '../../utils/analytics';
 import { OpenInCTA } from '../OpenInCTA';
 import CodeViewer from './CodeViewer';
 import styles from './ExampleRunner.module.scss';
@@ -602,13 +603,27 @@ const ExampleRunnerInner = ({
                 style={exampleStyle}
             >
                 <VisibilitySensor partialVisibility={true}>
-                    {({ isVisible }) => (
-                        <ExampleRunnerResult
-                            resultFrameIsVisible={!showCode}
-                            isOnScreen={isVisible}
-                            exampleInfo={exampleInfo}
-                        />
-                    )}
+                    {({ isVisible }) => {
+                        if (isVisible) {
+                            trackOnceExampleRunner({
+                                pageName,
+                                name,
+                                framework,
+                                useFunctionalReact,
+                                useVue3,
+                                useTypescript,
+                                exampleImportType,
+                            });
+                        }
+
+                        return (
+                            <ExampleRunnerResult
+                                resultFrameIsVisible={!showCode}
+                                isOnScreen={isVisible}
+                                exampleInfo={exampleInfo}
+                            />
+                        );
+                    }}
                 </VisibilitySensor>
                 <CodeViewer isActive={showCode} exampleInfo={exampleInfo} />
             </div>
