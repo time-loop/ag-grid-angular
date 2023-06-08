@@ -1,23 +1,20 @@
 {
-  "name": "@ag-grid-community/angular",
+  "name": "@time-loop/ag-grid-angular",
   "version": "23.2.1",
   "license": "MIT",
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
   "peerDependencies": {
     "@ag-grid-community/core": "~23.2.0",
-    "@angular/common": "^9.0.0",
-    "@angular/core": "^9.0.0"
+    "@angular/common": ">=12.0.0",
+    "@angular/core": ">=12.0.0"
   },
-  "main": "bundles/ag-grid-community-angular.umd.js",
-  "module": "fesm5/ag-grid-community-angular.js",
-  "es2015": "fesm2015/ag-grid-community-angular.js",
-  "esm5": "esm5/ag-grid-community-angular.js",
-  "esm2015": "esm2015/ag-grid-community-angular.js",
-  "fesm5": "fesm5/ag-grid-community-angular.js",
-  "fesm2015": "fesm2015/ag-grid-community-angular.js",
-  "typings": "ag-grid-community-angular.d.ts",
-  "metadata": "ag-grid-community-angular.metadata.json",
-  "sideEffects": false,
-  "dependencies": {
-    "tslib": "^1.10.0"
-  }
+  "main": "bundles/time-loop-ag-grid-angular.umd.js",
+  "module": "fesm2015/time-loop-ag-grid-angular.js",
+  "es2015": "fesm2015/time-loop-ag-grid-angular.js",
+  "esm2015": "esm2015/time-loop-ag-grid-angular.js",
+  "fesm2015": "fesm2015/time-loop-ag-grid-angular.js",
+  "typings": "time-loop-ag-grid-angular.d.ts",
+  "sideEffects": false
 }
