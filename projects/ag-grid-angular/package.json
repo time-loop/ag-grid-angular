@@ -1,6 +1,6 @@
 {
   "name": "@time-loop/ag-grid-angular",
-  "version": "23.2.1",
+  "version": "23.2.2",
   "license": "MIT",
   "dependencies": {
     "tslib": "^2.0.0"
